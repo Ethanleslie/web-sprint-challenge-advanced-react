@@ -1,3 +1,4 @@
+import e from 'cors'
 import React from 'react'
 
 // Suggested initial states
@@ -9,6 +10,7 @@ const initialIndex = 4 // the index the "B" is at
 export default function AppFunctional(props) {
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
+
 
   function getXY() {
     // It it not necessary to have a state to track the coordinates.
@@ -37,6 +39,8 @@ export default function AppFunctional(props) {
   }
 
   function onChange(evt) {
+    e.preventDefault();
+
     // You will need this to update the value of the input.
   }
 
@@ -76,3 +80,10 @@ export default function AppFunctional(props) {
     </div>
   )
 }
+
+
+// keep track of x and y
+// keep track of coordinates based on index
+// style also changes
+// move counter +1 every time you hit button
+// b square moves with buttons
