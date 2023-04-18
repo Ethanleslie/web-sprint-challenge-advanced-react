@@ -80,7 +80,7 @@ export default class AppClass extends React.Component {
 
   right = (evt) => {
     evt.preventDefault()
-    if(this.state.index <= 8){
+    if(this.state.index <= 8 ){
       this.setState({
         ...this.state,
         eMessage: `You can't go right`,
@@ -135,8 +135,10 @@ export default class AppClass extends React.Component {
     return (
       <div id="wrapper" className={className}>
         <div className="info">
-          <h3 id="coordinates">{`coordinates are ${this.state.gridCoords[index]} `}</h3>
-          <h3 id="steps">{`You moved ${steps} times`}</h3>
+          <h3 id="coordinates">{`Coordinates (${this.state.gridCoords[index]})`}</h3>
+          <h3 id="steps">{`You moved ${this.state.steps} ${steps === 1  ? 'time' : 'times'}`}
+            
+          </h3>
         </div>
         <div id="grid">
           {

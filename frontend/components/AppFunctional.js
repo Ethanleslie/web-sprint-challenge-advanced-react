@@ -1,51 +1,44 @@
 import e from 'cors'
-import React from 'react'
+import React, {useState} from 'react'
 
-// Suggested initial states
-const initialMessage = ''
-const initialEmail = ''
-const initialSteps = 0
-const initialIndex = 4 // the index the "B" is at
+
 
 export default function AppFunctional(props) {
-  // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
-  // You can delete them and build your own logic from scratch.
+ const [email, setEmail] = useState('')
+ const [steps, setSteps] = useState(0)
+ const [message, setMessage] = useState('')
+ const [index, setIndex] = useState(4)
+ const gridCoords = ['1, 1', '2, 1', '3, 1', '1, 2', '2, 2', '3, 2', '1, 3', '2, 3', '3, 3']
+ 
+ 
 
 
-  function getXY() {
-    // It it not necessary to have a state to track the coordinates.
-    // It's enough to know what index the "B" is at, to be able to calculate them.
+
+  function reset(evt) {
+    evt.preventDefault();
+    setSteps(2)
+
   }
 
-  function getXYMessage() {
-    // It it not necessary to have a state to track the "Coordinates (2, 2)" message for the user.
-    // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
-    // returns the fully constructed string.
-  }
-
-  function reset() {
-    // Use this helper to reset all states to their initial values.
-  }
-
-  function getNextIndex(direction) {
-    // This helper takes a direction ("left", "up", etc) and calculates what the next index
-    // of the "B" would be. If the move is impossible because we are at the edge of the grid,
-    // this helper should return the current index unchanged.
-  }
-
-  function move(evt) {
-    // This event handler can use the helper above to obtain a new index for the "B",
-    // and change any states accordingly.
-  }
+  
+  
 
   function onChange(evt) {
     e.preventDefault();
-
-    // You will need this to update the value of the input.
+      
+     
   }
 
   function onSubmit(evt) {
-    // Use a POST request to send a payload to the server.
+    evt.preventDefault();
+
+    axios.get(`POST http://localhost:9000/api/result`)
+    .then(res => {
+
+      setEmail(res.data.email);
+      setSteps(res.data.steps);
+
+    })
   }
 
   return (
@@ -71,10 +64,10 @@ export default function AppFunctional(props) {
         <button id="up">UP</button>
         <button id="right">RIGHT</button>
         <button id="down">DOWN</button>
-        <button id="reset">reset</button>
+        <button id="reset" onClick={(evt)=> reset(evt)}>Reset</button>
       </div>
       <form>
-        <input id="email" type="email" placeholder="type email"></input>
+       {/* { <input id="email" type="email" placeholder="type email" value={props.email.value} onChange={props.onChange}></input> } */}
         <input id="submit" type="submit"></input>
       </form>
     </div>
