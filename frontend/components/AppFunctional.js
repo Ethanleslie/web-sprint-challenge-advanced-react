@@ -1,5 +1,6 @@
 import e from 'cors'
 import React, {useState} from 'react'
+import axios from 'axios'
 
 
 
@@ -16,67 +17,119 @@ export default function AppFunctional(props) {
 
   function reset(evt) {
     evt.preventDefault();
-    setSteps(2)
-
+    setSteps(0)
+    setEmail('')
+    setIndex(4);
+    setMessage('')
   }
 
+  function up (evt)  {
+    evt.preventDefault()
+    if(index <=3 ){
+      setMessage('You cant go up')
+    }
+  
+    if(index <=8 && index >= 3){
+      setIndex(index - 3)
+      setSteps(steps +1)
+    }
+  }
+
+  function down (evt)  {
+    evt.preventDefault()
+    if(index >= 6 ){
+      setMessage('You cant go down')
+    }
+  
+    if(index <6 && index >= 0){
+      setIndex(index +3)
+      setSteps(steps +1)
+    }
+  }
+
+  function left (evt)  {
+    evt.preventDefault()
+    if(index <=1 ){
+      setMessage('You cant go left')
+    }
+  
+    if(index <=8 && index >= 1){
+      setIndex(index - 1)
+      setSteps(steps +1)
+    }
+  }
+  function right (evt)  {
+    evt.preventDefault()
+    if(index > 7 ){
+      setMessage('You cant go right')
+    }
+  
+    if(index < 8 && index >= 0){
+      setIndex(index + 1)
+      setSteps(steps +1)
+    }
+  }
   
   
 
   function onChange(evt) {
-    e.preventDefault();
-      
-     
+    
+    const {value} = evt.target
+    setEmail(value) 
   }
 
   function onSubmit(evt) {
     evt.preventDefault();
+    const chars = gridCoords[index].split('');
 
-    axios.get(`POST http://localhost:9000/api/result`)
+    axios.post(`http://localhost:9000/api/result`, {
+      x: chars[3],
+      y: chars[0],
+      steps: steps,
+      email: email
+    })
+    
     .then(res => {
-
-      setEmail(res.data.email);
-      setSteps(res.data.steps);
-
+      setMessage(res.data.message)
+    })
+    .catch(res => {
+      setMessage('Ouch: email is required')
     })
   }
 
   return (
+    
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates (2, 2)</h3>
-        <h3 id="steps">You moved 0 times</h3>
+        <h3 id="coordinates">{`Coordinates (${gridCoords[index]})`}</h3>
+        <h3 id="steps">{`You moved ${steps} ${steps === 1  ? 'time' : 'times'}`}</h3>
       </div>
       <div id="grid">
         {
           [0, 1, 2, 3, 4, 5, 6, 7, 8].map(idx => (
-            <div key={idx} className={`square${idx === 4 ? ' active' : ''}`}>
-              {idx === 4 ? 'B' : null}
+            <div key={idx} className={`square${idx === index ? ' active' : ''}`}>
+              {idx === index ? 'B' : null}
             </div>
           ))
         }
       </div>
       <div className="info">
-        <h3 id="message"></h3>
+        <h3 id="message">{message}</h3>
       </div>
       <div id="keypad">
-        <button id="left">LEFT</button>
-        <button id="up">UP</button>
-        <button id="right">RIGHT</button>
-        <button id="down">DOWN</button>
+        <button id="left" onClick={(evt)=> left(evt)}>LEFT</button>
+        <button id="up" onClick={(evt)=> up(evt)}>UP</button>
+        <button id="right" onClick={(evt)=> right(evt)}>RIGHT</button>
+        <button id="down" onClick={(evt)=> down(evt)}>DOWN</button>
         <button id="reset" onClick={(evt)=> reset(evt)}>Reset</button>
       </div>
       <form>
-       {/* { <input id="email" type="email" placeholder="type email" value={props.email.value} onChange={props.onChange}></input> } */}
-        <input id="submit" type="submit"></input>
+        <input id="email" type="email" placeholder="type email" value={email} onChange={onChange}></input>  
+        <input id="submit" type="submit" onClick={(evt) => onSubmit(evt)}></input>
       </form>
     </div>
   )
 }
 
 
-// keep track of x and y
-// keep track of coordinates based on index
-// style also changes
-// move counter +1 every time you hit button
-// b square moves with buttons
+
