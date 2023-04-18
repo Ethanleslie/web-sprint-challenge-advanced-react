@@ -26,7 +26,7 @@ export default function AppFunctional(props) {
   function up (evt)  {
     evt.preventDefault()
     if(index <=3 ){
-      setMessage('You cant go up')
+      setMessage(`You can't go up`)
     }
   
     if(index <=8 && index >= 3){
@@ -38,7 +38,7 @@ export default function AppFunctional(props) {
   function down (evt)  {
     evt.preventDefault()
     if(index >= 6 ){
-      setMessage('You cant go down')
+      setMessage(`You can't go down`)
     }
   
     if(index <6 && index >= 0){
@@ -49,8 +49,8 @@ export default function AppFunctional(props) {
 
   function left (evt)  {
     evt.preventDefault()
-    if(index <=1 ){
-      setMessage('You cant go left')
+    if(index <1 ){
+      setMessage(`You can't go left`)
     }
   
     if(index <=8 && index >= 1){
@@ -61,7 +61,7 @@ export default function AppFunctional(props) {
   function right (evt)  {
     evt.preventDefault()
     if(index > 7 ){
-      setMessage('You cant go right')
+      setMessage(`You can't go right`)
     }
   
     if(index < 8 && index >= 0){
@@ -81,6 +81,7 @@ export default function AppFunctional(props) {
   function onSubmit(evt) {
     evt.preventDefault();
     const chars = gridCoords[index].split('');
+    
 
     axios.post(`http://localhost:9000/api/result`, {
       x: chars[3],
@@ -90,6 +91,7 @@ export default function AppFunctional(props) {
     })
     
     .then(res => {
+      
       setMessage(res.data.message)
     })
     .catch(res => {
@@ -107,7 +109,7 @@ export default function AppFunctional(props) {
       <div id="grid">
         {
           [0, 1, 2, 3, 4, 5, 6, 7, 8].map(idx => (
-            <div key={idx} className={`square${idx === index ? ' active' : ''}`}>
+            <div key={idx} className={`square ${idx === index ? ' active' : ''}`}>
               {idx === index ? 'B' : null}
             </div>
           ))
