@@ -49,22 +49,22 @@ export default function AppFunctional(props) {
 
   function left (evt)  {
     evt.preventDefault()
-    if(index <1 ){
+    if(index === 0 || index === 3 || index === 6 ){
       setMessage(`You can't go left`)
     }
   
-    if(index <=8 && index >= 1){
+    else{
       setIndex(index - 1)
       setSteps(steps +1)
     }
   }
   function right (evt)  {
     evt.preventDefault()
-    if(index > 7 ){
+    if(index === 2 || index === 5 || index === 8){
       setMessage(`You can't go right`)
     }
   
-    if(index < 8 && index >= 0){
+    else{
       setIndex(index + 1)
       setSteps(steps +1)
     }
