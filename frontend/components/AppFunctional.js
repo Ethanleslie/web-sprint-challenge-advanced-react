@@ -81,7 +81,6 @@ export default function AppFunctional(props) {
   function onSubmit(evt) {
     evt.preventDefault();
     const chars = gridCoords[index].split('');
-    
 
     axios.post(`http://localhost:9000/api/result`, {
       x: chars[3],
@@ -91,7 +90,6 @@ export default function AppFunctional(props) {
     })
     
     .then(res => {
-      
       setMessage(res.data.message)
     })
     .catch(res => {

@@ -64,13 +64,13 @@ export default class AppClass extends React.Component {
 
   left = (evt) => {
     evt.preventDefault()
-    if(this.state.index <= 1){
+    if(this.state.index === 0 || this.state.index === 3 || this.state.index === 6){
       this.setState({
         ...this.state,
         eMessage: `You can't go left`,
       })}
 
-     if(this.state.index <= 8 && this.state.index >=1) {
+     else{ 
      this.setState({
        ...this.state,
        index: this.state.index-1,
@@ -80,19 +80,20 @@ export default class AppClass extends React.Component {
 
   right = (evt) => {
     evt.preventDefault()
-    if(this.state.index <= 8 ){
+    if(this.state.index === 2 || this.state.index === 5 || this.state.index === 8 ){
       this.setState({
         ...this.state,
         eMessage: `You can't go right`,
       })}
 
-     if(this.state.index < 8 && this.state.index >=0) {
+    else{ 
      this.setState({
        ...this.state,
        index: this.state.index+1,
       steps: this.state.steps+1
   })}
   }
+
 
   
 
