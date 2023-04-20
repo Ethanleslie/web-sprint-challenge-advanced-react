@@ -7,9 +7,9 @@ import AppClass from './AppClass';
 
 test('renders Error Message if the user clicks the up button past the 2nd index of the grid', async () => {
   render(<AppClass/>); 
-  const up = screen.getById("up");
-  userEvent.click(this.up);
-  userEvent.click(this.up);
+  const up = screen.findByTestId("up");
+  userEvent.click(up);
+  userEvent.click(up);
 
  
   const eMessage = await screen.findByText(/you cant go up/i);
