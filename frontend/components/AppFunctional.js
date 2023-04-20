@@ -79,7 +79,7 @@ export default function AppFunctional(props) {
   }
 
   function onSubmit(evt) {
-    evt.preventDefault();
+    evt.preventDefault()
     const chars = gridCoords[index].split('');
 
     axios.post(`http://localhost:9000/api/result`, {
@@ -91,9 +91,17 @@ export default function AppFunctional(props) {
     
     .then(res => {
       setMessage(res.data.message)
+      
     })
     .catch(res => {
+      if(email === '')
       setMessage('Ouch: email is required')
+      else{
+        alert(`Please include an '@' in the email address. ${email} is missing an '@'.`)
+      }
+      
+        
+      
     })
   }
 

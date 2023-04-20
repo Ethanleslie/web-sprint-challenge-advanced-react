@@ -103,7 +103,7 @@ export default class AppClass extends React.Component {
   }
 
   onSubmit = (evt) => {
-   evt.preventDefault()
+    evt.preventDefault()
    const chars = this.state.gridCoords[this.state.index].split('');
     console.log(this.state.gridCoords[chars[0]])
     console.log(this.state.gridCoords[chars[3]])
@@ -126,7 +126,11 @@ export default class AppClass extends React.Component {
       
     })
     .catch(err => {
+      if(this.state.email === '')
         this.setState({...this.state, eMessage: 'Ouch: email is required'})
+        else{
+          alert(`Please include an '@' in the email address. ${this.state.email} is missing an '@'.`)
+        }
     })
   }
 
