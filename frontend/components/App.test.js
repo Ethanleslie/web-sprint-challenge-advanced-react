@@ -40,6 +40,6 @@ import AppClass from './AppClass';
 //   })
 // })
 
-// test('sanity', () => {
-//   expect(true).toBe(true)
-// })
+ test('sanity', () => {
+   expect(true).toBe(true)
+ })
