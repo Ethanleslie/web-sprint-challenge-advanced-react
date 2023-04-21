@@ -94,7 +94,6 @@ export default class AppClass extends React.Component {
   })}
   }
 
-
   
 
   onChange = (evt) => {
@@ -122,13 +121,16 @@ export default class AppClass extends React.Component {
     })
     .then(res => {
     console.log(res)
-    this.setState({...this.state, eMessage: res.data.message })
+    this.setState({...this.state, eMessage: res.data.message, email: ''})
+    
       
     })
     .catch(res => {
       this.setState({...this.state, eMessage: res.response.data.message})
     })
   }
+
+
 
   render() {
     const { className } = this.props

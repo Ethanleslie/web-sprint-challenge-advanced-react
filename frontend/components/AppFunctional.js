@@ -95,10 +95,9 @@ export default function AppFunctional(props) {
     })
     .catch(res => {
       setMessage(res.response.data.message)
-    
-      
-        
-      
+    })
+    .finally(res => {
+      setEmail('')
     })
   }
 

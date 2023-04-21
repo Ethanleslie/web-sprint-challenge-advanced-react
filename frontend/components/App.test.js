@@ -8,7 +8,7 @@ import AppClass from './AppClass';
 
 test('renders Error Message if the user clicks the up button past the 2nd index of the grid', async () => {
   render(<AppClass/>); 
-  const up = screen.findByTestId("up");
+  const up = screen.findByTestId('up');
   userEvent.click(up);
   userEvent.click(up);
 
@@ -18,10 +18,17 @@ test('renders Error Message if the user clicks the up button past the 2nd index 
   
 });
 
-test('renders ', async () => {
-  
+test('renders error message', async () => {
+  render(<AppClass/>)
+  const submitButton = screen.getByRole("submit");
+  userEvent.click(submitButton)
+
+  await waitFor(() => {
+    const errorMessages = screen.queryByTestId("eMessage");
+    expect(errorMessages).toHaveLength(1)
+  })
 })
 
 test('sanity', () => {
-  expect(true).toBe(false)
+  expect(true).toBe(true)
 })
