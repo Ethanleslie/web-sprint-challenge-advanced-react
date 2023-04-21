@@ -83,8 +83,8 @@ export default function AppFunctional(props) {
     const chars = gridCoords[index].split('');
 
     axios.post(`http://localhost:9000/api/result`, {
-      x: chars[3],
-      y: chars[0],
+      x: chars[0],
+      y: chars[3],
       steps: steps,
       email: email
     })
@@ -94,11 +94,8 @@ export default function AppFunctional(props) {
       
     })
     .catch(res => {
-      if(email === '')
-      setMessage('Ouch: email is required')
-      else{
-        alert(`Please include an '@' in the email address. ${email} is missing an '@'.`)
-      }
+      setMessage(res.response.data.message)
+    
       
         
       
@@ -132,7 +129,7 @@ export default function AppFunctional(props) {
         <button id="reset" onClick={(evt)=> reset(evt)}>Reset</button>
       </div>
       <form>
-        <input id="email" type="email" placeholder="type email" value={email} onChange={onChange}></input>  
+        <input id="email" required type="email" placeholder="type email" value={email} onChange={onChange}></input>  
         <input id="submit" type="submit" onClick={(evt) => onSubmit(evt)}></input>
       </form>
     </div>
